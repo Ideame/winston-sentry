@@ -44,7 +44,19 @@ util.inherits(Sentry, winston.Transport);
 //
 // Expose the name of this Transport on the prototype
 Sentry.prototype.name = 'sentry';
+
+
 //
+Sentry.prototype.setUserContext = function(sessionUser, ip) {
+  this._sentry.setUserContext({
+    email: sessionUser.email,
+    id: sessionUser.id,
+    username: sessionUser.username,
+    ip_address: ip,
+    profile_url: sessionUser.profileUrl,
+    last_login_provider: sessionUser.lastLoginProvider
+  });
+};
 
 Sentry.prototype.log = function (level, msg, meta, callback) {
   // TODO: handle this better
@@ -72,6 +84,7 @@ Sentry.prototype.log = function (level, msg, meta, callback) {
   }
 
   try {
+
     if(level == 'error') {
       // Support exceptions logging
       if (meta instanceof Error) {
@@ -82,7 +95,6 @@ Sentry.prototype.log = function (level, msg, meta, callback) {
           msg = meta;
         }
       }
-
       this._sentry.captureError(msg, extra, function() {
         callback(null, true);
       });

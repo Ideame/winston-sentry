@@ -1,6 +1,6 @@
 {
-  "name": "winston-sentry",
-  "version": "0.1.1",
+  "name": "ideame-winston-sentry",
+  "version": "0.0.1",
   "description": "Sentry transport for the winston logger.",
   "main": "sentry-transport.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "https://github.com/guzru/winston-sentry.git"
   },
   "dependencies": {
-    "raven": "^0.8.1",
+    "raven": "^0.10.0",
     "underscore": "1.8.3"
   },
   "peerDependencies": {
@@ -24,12 +24,6 @@
     "logger",
     "winston"
   ],
-  "author": "Cristiano Valente",
-  "contributors": [
-    {
-      "name" : "Shahar Kedar",
-      "url" : "https://github.com/shaharke/"
-    }
-  ],
+  "author": "Ideame",
   "license": "BSD"
 }
