@@ -72,6 +72,18 @@ Sentry.prototype.log = function (level, msg, meta, callback) {
   }
 
   try {
+    if (req._passport
+        && req._passport.session) {
+
+      this._sentry.setUserContext({
+        id: req._passport.session.user.id,
+        email: req._passport.session.user.email,
+        ip_address: req._remoteAddress,
+        username: req._passport.session.user.username
+      });
+    }
+
+
     if(level == 'error') {
       // Support exceptions logging
       if (meta instanceof Error) {
@@ -82,7 +94,6 @@ Sentry.prototype.log = function (level, msg, meta, callback) {
           msg = meta;
         }
       }
-
       this._sentry.captureError(msg, extra, function() {
         callback(null, true);
       });
