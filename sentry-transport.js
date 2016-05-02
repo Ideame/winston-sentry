@@ -45,8 +45,7 @@ util.inherits(Sentry, winston.Transport);
 // Expose the name of this Transport on the prototype
 Sentry.prototype.name = 'sentry';
 
-
-//
+// User Context
 Sentry.prototype.setUserContext = function(sessionUser, ip) {
   this._sentry.setUserContext({
     email: sessionUser.email,
@@ -84,7 +83,6 @@ Sentry.prototype.log = function (level, msg, meta, callback) {
   }
 
   try {
-
     if(level == 'error') {
       // Support exceptions logging
       if (meta instanceof Error) {
@@ -95,6 +93,7 @@ Sentry.prototype.log = function (level, msg, meta, callback) {
           msg = meta;
         }
       }
+
       this._sentry.captureError(msg, extra, function() {
         callback(null, true);
       });
