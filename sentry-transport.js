@@ -21,7 +21,7 @@ var Sentry = winston.transports.Sentry = function (options) {
     debug: 'debug',
     warn: 'warning',
     error: 'error'
-  }
+  };
 
   // Set the level from your options
   this.level = options.level || 'info';
